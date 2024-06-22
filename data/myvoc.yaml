@@ -1,0 +1,10 @@
+train: ./my_VOC2012/train.txt
+val: ./my_VOC2012/val.txt
+
+# number of classes
+nc: 20
+
+# class names
+names: ["aeroplane", "bicycle", "bird", "boat", "bottle", "bus",
+        "car", "cat", "chair", "cow", "diningtable", "dog", "horse",
+        "motorbike", "person", "pottedplant", "sheep", "sofa", "train", "tvmonitor"]

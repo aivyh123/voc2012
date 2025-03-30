@@ -15,6 +15,8 @@ http://host.robots.ox.ac.uk/pascal/VOC/voc2012/
 
 解压至项目根目录下的`my_VOC2012`目录中，注意`JPEGImages`目录需改名为`images`。
 
+若使用自己的数据集，应将`Annotations`和`JPEGImages`两个文件夹放置到`my_VOC2012`目录中。
+
 ## GitHub拉取YOLOv5源码
 ```
 https://github.com/ultralytics/yolov5.git

@@ -6,9 +6,7 @@ import os
 from os import getcwd
 
 sets = ['train', 'val', 'test']
-classes = ["aeroplane", "bicycle", "bird", "boat", "bottle", "bus",
-           "car", "cat", "chair", "cow", "diningtable", "dog", "horse",
-           "motorbike", "person", "pottedplant", "sheep", "sofa", "train", "tvmonitor"]
+classes = ["Heavy Damage","Minor Damage","Moderate Damage","Undamage"]
 
 
 def convert(size, box):

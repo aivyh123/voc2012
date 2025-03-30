@@ -41,12 +41,18 @@ pip install -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
 ## 数据集划分
 编写`my_split.py`用于划分训练、验证、测试集，代码测试时可以只选一小部分图像。  
 输出的.txt文件记录了数据集的划分情况，存放于`./my_VOC2012/ImageSets/Main`下。
+```bash
+python my_split.py
+```
 
 ## 标注文件格式转换
 编写`my_xml2label.py`用于将VOC提供的.xml格式的标注转为适合YOLOv5框架使用的标注格式。  
 其针对.txt文件中指示的每一张图像，将其对应的.xml标注转换并保存在`./my_VOC2012/labels`目录下。
 
-**注意`my_xml2label.py`的第70行包含绝对路径，需修改为本机的相应路径。**
+**注意`my_xml2label.py`的第68行包含绝对路径，需修改为本机的相应路径。**
+```bash
+python my_xml2label.py
+```
 
 ## 创建数据集配置文件
 根据VOC2012数据集的情况，在`./data`目录下创建`myvoc.yaml`配置文件。  
@@ -61,12 +67,26 @@ https://github.com/ultralytics/yolov5/releases/tag/v5.0
 
 ## 修改模型配置文件
 根据选用的模型创建或修改相应的模型配置文件，模型配置文件位于`./models`目录下。  
-由于使用的`yolov5m.pt`权重文件已有相应的`yolov5m.yaml`，故仅需修改。  
-仅需修改Parameters中的nc一项，改为20与模型的分类数量相同。
+由于使用的`yolov5m.pt`权重文件已有相应的`yolov5m.yaml`，故仅需修改Parameters中的nc一项，改为4与模型的分类数量相同。
 
 ## 开始训练
 运行项目根目录下的`train.py`启动训练。
 ```bash
-python train.py --batch 4 --epoch 300 --data ./data/myvoc.yaml --cfg ./models/yolov5m.yaml --weights ./weights/yolov5m.pt
+python train.py --img 416 --batch 4 --epoch 1 --data ./data/myvoc.yaml --cfg ./models/yolov5m.yaml --weights ./weights/yolov5m.pt
 ```
-需要训练的epoch数量以及各文件的路径根据实际情况填写。
+需要训练的epoch数量以及各文件的路径根据实际情况填写。  
+在./runs/train/exp/weights下会保存本次训练中的最优、最终模型。
+
+## 开始验证
+运行项目根目录下的`val.py`启动验证。
+```bash
+python val.py --img 416 --data ./data/myvoc.yaml --weights ./runs/train/exp/weights/best.pt
+```
+在./runs/val/exp下会保存本次验证的相关结果图片。
+
+## 开始检测
+运行项目根目录下的`detect.py`启动检测。待检测的全部图片放在./data/images目录下。
+```bash
+python detect.py --img 416 --weights ./runs/train/exp/weights/best.pt --source ./data/images
+```
+在./runs/detect/exp下会保存本次检测的相关结果图片。
